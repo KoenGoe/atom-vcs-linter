@@ -50,26 +50,26 @@ try:
             message = lines[i] + "\n"
             file = filelist[0]
             line=str(1)
+            errorlines = [lines[i]]
             i+=1
             while i<len(lines) and lines[i]!='':
-                #print('parsing' , lines[i], ' ', end=' ')
-                reans = re.match("\s*\"([^\"]+)\"[,\s]*([0-9]*):(.*)", lines[i])
-                if reans:
-                    #print('match')
-                    file = os.path.join(basedir, reans.group(1))
-                    line = reans.group(2)
-                    message += reans.group(3)+"\n"
-                else:
-                    reans=re.match('\s*The first driver is at \"([^\"]+)\"[,\s]*([0-9]*):(.*)', lines[i])
-                    if reans:
-                        file=os.path.join(basedir, reans.group(1))
-                        line = reans.group(2)
-                        message+=lines[i]
-                    else:
-                        #print('no match')
-                        message += lines[i]+'\n'
+                errorlines.append(lines[i])
                 i+=1
-            out += file +":"+line +":"+ type +":"+message+"\n\n"
+
+            reans = re.search("\s*\"([^\"]+)\"\s*,\s*([0-9]*):(.*)", '\n'.join(errorlines))
+            if reans:
+                #print('match')
+                file = os.path.join(basedir, reans.group(1))
+                line = reans.group(2)
+
+            else:
+                reans=re.search('\s*The first driver is at \"([^\"]+)\"\s*,\s*([0-9]*):(.*)','\n'.join(errorlines))
+                if reans:
+                    file=os.path.join(basedir, reans.group(1))
+                    line = reans.group(2)
+
+
+            out += file +":"+line +":"+ type +":"+'\n'.join(errorlines)+"\n\n"
         i+=1
     print(out)
 
