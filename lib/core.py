@@ -61,15 +61,23 @@ try:
                 #print('match')
                 foundfile = os.path.join(basedir, reans.group(1))
                 file = foundfile if path.isfile(foundfile) else file
-                line = reans.group(2)
+                line = reans.group(2) if path.isfile(foundfile) else line
 
             else:
                 reans=re.search('\s*The first driver is at \"([^\"]+)\"\s*,\s*([0-9]*)','\n'.join(errorlines))
                 if reans:
                     foundfile=os.path.join(basedir, reans.group(1))
                     file = foundfile if path.isfile(foundfile) else file
-                    line = reans.group(2)
-
+                    line = reans.group(2) if path.isfile(foundfile) else line
+                else:
+                    for line in errorlines:
+                        reans = re.match('\"?(.*)\"?\s*,\s*([0-9]+)', line)
+                        if reans:
+                            foundfile=os.path.join(basedir, reans.group(1))
+                            if path.isfile(foundfile):
+                                file = foundfile
+                                line=reans.group(2)
+                                break
 
             out += file +":"+line +":"+ type +":"+'\n'.join(errorlines)+"\n\n"
         i+=1
