@@ -56,16 +56,18 @@ try:
                 errorlines.append(lines[i])
                 i+=1
 
-            reans = re.search("\s*\"([^\"]+)\"\s*,\s*([0-9]*):(.*)", '\n'.join(errorlines))
+            reans = re.search("\s*\"([^\"]+)\"\s*,\s*([0-9]*)", '\n'.join(errorlines))
             if reans:
                 #print('match')
-                file = os.path.join(basedir, reans.group(1))
+                foundfile = os.path.join(basedir, reans.group(1))
+                file = foundfile if path.isfile(foundfile) else file
                 line = reans.group(2)
 
             else:
-                reans=re.search('\s*The first driver is at \"([^\"]+)\"\s*,\s*([0-9]*):(.*)','\n'.join(errorlines))
+                reans=re.search('\s*The first driver is at \"([^\"]+)\"\s*,\s*([0-9]*)','\n'.join(errorlines))
                 if reans:
-                    file=os.path.join(basedir, reans.group(1))
+                    foundfile=os.path.join(basedir, reans.group(1))
+                    file = foundfile if path.isfile(foundfile) else file
                     line = reans.group(2)
 
 
