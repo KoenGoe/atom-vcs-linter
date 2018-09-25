@@ -55,31 +55,37 @@ try:
             while i<len(lines) and lines[i]!='':
                 errorlines.append(lines[i])
                 i+=1
-
+            found = False
             reans = re.search("\s*\"([^\"]+)\"\s*,\s*([0-9]*)", '\n'.join(errorlines))
             if reans:
                 #print('match')
-                foundfile = os.path.join(basedir, reans.group(1))
-                file = foundfile if path.isfile(foundfile) else file
-                line = reans.group(2) if path.isfile(foundfile) else line
+                foundfile = reans.group(1) if os.path.isabs(reans.group(1)) else os.path.join(basedir, reans.group(1))
+                if path.isfile(foundfile):
+                    found=True
+                    file = foundfile
+                    line = reans.group(2)
 
-            else:
+            if not found:
                 reans=re.search('\s*The first driver is at \"([^\"]+)\"\s*,\s*([0-9]*)','\n'.join(errorlines))
                 if reans:
-                    foundfile=os.path.join(basedir, reans.group(1))
-                    file = foundfile if path.isfile(foundfile) else file
-                    line = reans.group(2) if path.isfile(foundfile) else line
-                else:
-                    for line in errorlines:
-                        reans = re.match('\"?(.*)\"?\s*,\s*([0-9]+)', line)
-                        if reans:
-                            foundfile=os.path.join(basedir, reans.group(1))
-                            if path.isfile(foundfile):
-                                file = foundfile
-                                line=reans.group(2)
-                                break
+                    foundfile = reans.group(1) if os.path.isabs(reans.group(1)) else os.path.join(basedir, reans.group(1))
+                    if path.isfile(foundfile):
+                        found=True
+                        file = foundfile
+                        line = reans.group(2)
+            if not found:
+                for line in errorlines:
+                    reans = re.match('\"?(.*)\"?\s*,\s*([0-9]+)', line)
+                    if reans:
+                        foundfile = reans.group(1) if os.path.isabs(reans.group(1)) else os.path.join(basedir, reans.group(1))
+                        if path.isfile(foundfile):
+                            found=True
+                            file = foundfile
+                            line=reans.group(2)
+                            break
 
             out += file +":"+line +":"+ type +":"+'\n'.join(errorlines)+"\n\n"
+
         i+=1
     print(out)
 
