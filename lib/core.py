@@ -56,7 +56,7 @@ try:
                 errorlines.append(lines[i])
                 i+=1
             found = False
-            reans = re.search("\s*\"?([^\"\s]+)\"?\s*,\s*([0-9]*)", '\n'.join(errorlines))
+            reans = re.search("\s*((?:\"[^\"\n\r\t]+\")|(?:\S+))\s*,\s*([0-9]*)", '\n'.join(errorlines))
             if reans:
                 #print('match')
                 foundfile = reans.group(1) if os.path.isabs(reans.group(1)) else os.path.join(basedir, reans.group(1))
