@@ -56,7 +56,7 @@ try:
                 errorlines.append(lines[i])
                 i+=1
             found = False
-            reans = re.search("\s*\"([^\"]+)\"\s*,\s*([0-9]*)", '\n'.join(errorlines))
+            reans = re.search("\s*\"?([^\"\s]+)\"?\s*,\s*([0-9]*)", '\n'.join(errorlines))
             if reans:
                 #print('match')
                 foundfile = reans.group(1) if os.path.isabs(reans.group(1)) else os.path.join(basedir, reans.group(1))
@@ -73,16 +73,17 @@ try:
                         found=True
                         file = foundfile
                         line = reans.group(2)
-            if not found:
-                for line in errorlines:
-                    reans = re.match('\"?(.*)\"?\s*,\s*([0-9]+)', line)
-                    if reans:
-                        foundfile = reans.group(1) if os.path.isabs(reans.group(1)) else os.path.join(basedir, reans.group(1))
-                        if path.isfile(foundfile):
-                            found=True
-                            file = foundfile
-                            line=reans.group(2)
-                            break
+            #NEXT should be captured by first search already...
+            #if not found:
+            #    for line in errorlines:
+            #        reans = re.match('\"?(.*)\"?\s*,\s*([0-9]+)', line)
+            #        if reans:
+            #            foundfile = reans.group(1) if os.path.isabs(reans.group(1)) else os.path.join(basedir, reans.group(1))
+            #            if path.isfile(foundfile):
+            #                found=True
+            #                file = foundfile
+            #                line=reans.group(2)
+            #                break
 
             out += file +":"+line +":"+ type +":"+'\n'.join(errorlines)+"\n\n"
 
