@@ -56,39 +56,46 @@ try:
                 errorlines.append(lines[i])
                 i+=1
             found = False
-            reans = re.findall("\s+((?:\"[^\"\n\r\t]+\")|(?:\S+))\s*,\s*([0-9]*)", '\n'.join(errorlines))
-            if reans:
-                for foundfile, foundline in reans:
-                    #print('match')
-                    foundfile = foundfile.strip("\"")
-                    foundfile = foundfile if os.path.isabs(foundfile) else os.path.join(basedir, foundfile)
-                    if path.isfile(foundfile):
-                        found=True
-                        file = foundfile
-                        line = foundline
-                        break
-            #NEXT should be captured by first search already...
-            #if not found:
-            #    reans=re.search('\s*The first driver is at \"([^\"]+)\"\s*,\s*([0-9]*)','\n'.join(errorlines))
-            #    if reans:
-            #        foundfile = reans.group(1) if os.path.isabs(reans.group(1)) else os.path.join(basedir, reans.group(1))
-            #        if path.isfile(foundfile):
-            #            found=True
-            #            file = foundfile
-            #            line = reans.group(2)
-            #NEXT should be captured by first search already...
-            #if not found:
-            #    for line in errorlines:
-            #        reans = re.match('\"?(.*)\"?\s*,\s*([0-9]+)', line)
-            #        if reans:
-            #            foundfile = reans.group(1) if os.path.isabs(reans.group(1)) else os.path.join(basedir, reans.group(1))
-            #            if path.isfile(foundfile):
-            #                found=True
-            #                file = foundfile
-            #                line=reans.group(2)
-            #                break
 
-            out += file +":"+line +":"+ type +":"+'\n'.join(errorlines)+"\n\n"
+
+
+            if not found:
+                #Return all file, line combos
+                if re.search("(?:Illegal\s+combination\s+of\s+drivers)"+
+                             "|(?:Identifier\s+previously\s+declared)",
+                                '\n'.join(errorlines), flags=re.IGNORECASE):
+                    reans = re.findall("\s+\[?((?:\"[^\"\n\r\t]+\")|(?:\S+))\s*,\s*([0-9]*)\]?", '\n'.join(errorlines))
+                    if reans:
+                        files = []
+                        lines = []
+                        for foundfile, foundline in reans:
+                            #print('match')
+                            foundfile = foundfile.strip("\"")
+                            foundfile = foundfile if os.path.isabs(foundfile) else os.path.join(basedir, foundfile)
+                            if path.isfile(foundfile):
+                                found=True
+                                files.append(foundfile)
+                                lines.append(foundline)
+                    for f, l in zip(files, lines):
+                        out += f +":"+l +":"+ type +":"+'\n'.join(errorlines)+"\n\n"
+
+
+
+            if not found:
+                #default case: return first file, line combo found
+                reans = re.findall("\s+\[?((?:\"[^\"\n\r\t]+\")|(?:\S+))\s*,\s*([0-9]*)\]?", '\n'.join(errorlines))
+                if reans:
+                    for foundfile, foundline in reans:
+                        #print('match')
+                        foundfile = foundfile.strip("\"[]")
+                        foundfile = foundfile if os.path.isabs(foundfile) else os.path.join(basedir, foundfile)
+                        if path.isfile(foundfile):
+                            found=True
+                            file = foundfile
+                            line = foundline
+                            break
+
+                out += file +":"+line +":"+ type +":"+'\n'.join(errorlines)+"\n\n"
 
         i+=1
     print(out)
