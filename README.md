@@ -1,6 +1,6 @@
 # Atom linter systemverilog
 ## Intro
-This is a atom-linter provider that turns vcs into a linter.
+This is a atom-linter provider that parses vcs output so that it can be used as a linter. This means it is compatible with everything vcs is, incl. systemverilog, verilog and vhdl.
 
 ## Requirements
 * A makefile with a silent target ```linter```  (add ```.SILENT: linter``` to the makefile) that:
@@ -9,8 +9,9 @@ This is a atom-linter provider that turns vcs into a linter.
   3. Is located in the directory of the source (rtl) files, or any parent directory.
 * vcs
 * python (tested with 3.6), available in ```PATH```
+* [Atom text editor](https://atom.io/) with [linter package](https://atom.io/packages/linter) installed. You probably want language packages for your hdl languages as wll.
 
-## installation
+## Installation
 1. copy code to atom's packages directory (linux: ~/.atom/packages)
 2. ```cd``` into folder
 3. run ```apm``` install. With portable atom, this is available in ```<atom_install_dir>/resources/app/apm/bin```
