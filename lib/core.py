@@ -66,6 +66,7 @@ try:
                         found=True
                         file = foundfile
                         line = foundline
+                        break
             #NEXT should be captured by first search already...
             #if not found:
             #    reans=re.search('\s*The first driver is at \"([^\"]+)\"\s*,\s*([0-9]*)','\n'.join(errorlines))
