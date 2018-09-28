@@ -1,44 +1,44 @@
 'use babel';
 
-import AtomSvLinter from '../lib/atom-sv-linter';
+import AtomvcsLinter from '../lib/atom-vcs-linter';
 
 // Use the command `window:run-package-specs` (cmd-alt-ctrl-p) to run specs.
 //
 // To run a specific `it` or `describe` block add an `f` to the front (e.g. `fit`
 // or `fdescribe`). Remove the `f` to unfocus the block.
 
-describe('AtomSvLinter', () => {
+describe('AtomvcsLinter', () => {
   let workspaceElement, activationPromise;
 
   beforeEach(() => {
     workspaceElement = atom.views.getView(atom.workspace);
-    activationPromise = atom.packages.activatePackage('atom-sv-linter');
+    activationPromise = atom.packages.activatePackage('atom-vcs-linter');
   });
 
-  describe('when the atom-sv-linter:toggle event is triggered', () => {
+  describe('when the atom-vcs-linter:toggle event is triggered', () => {
     it('hides and shows the modal panel', () => {
       // Before the activation event the view is not on the DOM, and no panel
       // has been created
-      expect(workspaceElement.querySelector('.atom-sv-linter')).not.toExist();
+      expect(workspaceElement.querySelector('.atom-vcs-linter')).not.toExist();
 
       // This is an activation event, triggering it will cause the package to be
       // activated.
-      atom.commands.dispatch(workspaceElement, 'atom-sv-linter:toggle');
+      atom.commands.dispatch(workspaceElement, 'atom-vcs-linter:toggle');
 
       waitsForPromise(() => {
         return activationPromise;
       });
 
       runs(() => {
-        expect(workspaceElement.querySelector('.atom-sv-linter')).toExist();
+        expect(workspaceElement.querySelector('.atom-vcs-linter')).toExist();
 
-        let atomSvLinterElement = workspaceElement.querySelector('.atom-sv-linter');
-        expect(atomSvLinterElement).toExist();
+        let atomvcsLinterElement = workspaceElement.querySelector('.atom-vcs-linter');
+        expect(atomvcsLinterElement).toExist();
 
-        let atomSvLinterPanel = atom.workspace.panelForItem(atomSvLinterElement);
-        expect(atomSvLinterPanel.isVisible()).toBe(true);
-        atom.commands.dispatch(workspaceElement, 'atom-sv-linter:toggle');
-        expect(atomSvLinterPanel.isVisible()).toBe(false);
+        let atomvcsLinterPanel = atom.workspace.panelForItem(atomvcsLinterElement);
+        expect(atomvcsLinterPanel.ivcsisible()).toBe(true);
+        atom.commands.dispatch(workspaceElement, 'atom-vcs-linter:toggle');
+        expect(atomvcsLinterPanel.ivcsisible()).toBe(false);
       });
     });
 
@@ -51,11 +51,11 @@ describe('AtomSvLinter', () => {
       // workspaceElement to the DOM are generally slower than those off DOM.
       jasmine.attachToDOM(workspaceElement);
 
-      expect(workspaceElement.querySelector('.atom-sv-linter')).not.toExist();
+      expect(workspaceElement.querySelector('.atom-vcs-linter')).not.toExist();
 
       // This is an activation event, triggering it causes the package to be
       // activated.
-      atom.commands.dispatch(workspaceElement, 'atom-sv-linter:toggle');
+      atom.commands.dispatch(workspaceElement, 'atom-vcs-linter:toggle');
 
       waitsForPromise(() => {
         return activationPromise;
@@ -63,10 +63,10 @@ describe('AtomSvLinter', () => {
 
       runs(() => {
         // Now we can test for view visibility
-        let atomSvLinterElement = workspaceElement.querySelector('.atom-sv-linter');
-        expect(atomSvLinterElement).toBeVisible();
-        atom.commands.dispatch(workspaceElement, 'atom-sv-linter:toggle');
-        expect(atomSvLinterElement).not.toBeVisible();
+        let atomvcsLinterElement = workspaceElement.querySelector('.atom-vcs-linter');
+        expect(atomvcsLinterElement).toBeVisible();
+        atom.commands.dispatch(workspaceElement, 'atom-vcs-linter:toggle');
+        expect(atomvcsLinterElement).not.toBeVisible();
       });
     });
   });

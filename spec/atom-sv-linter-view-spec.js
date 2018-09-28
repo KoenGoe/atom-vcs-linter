@@ -1,8 +1,8 @@
 'use babel';
 
-import AtomSvLinterView from '../lib/atom-sv-linter-view';
+import AtomvcsLinterView from '../lib/atom-vcs-linter-view';
 
-describe('AtomSvLinterView', () => {
+describe('AtomvcsLinterView', () => {
   it('has one valid test', () => {
     expect('life').toBe('easy');
   });

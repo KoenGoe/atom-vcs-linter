@@ -1,10 +1,10 @@
 {
-  "name": "linter-sv",
-  "main": "lib/atom-sv-linter.js",
+  "name": "linter-vcs",
+  "main": "lib/atom-vcs-linter.js",
   "version": "0.0.0",
   "private": true,
-  "description": "sv linter",
-  "keywords": ["linter-example", "example"],
+  "description": "vcs linter",
+  "keywords": ["linter", "vcs", "verilog", "systemverilog", "hdl"],
   "engines": {
     "atom": ">=1.4.0 <2.0.0"
   },

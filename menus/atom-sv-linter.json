@@ -2,8 +2,8 @@
   "context-menu": {
     "atom-text-editor": [
       {
-        "label": "Toggle atom-sv-linter",
-        "command": "atom-sv-linter:toggle"
+        "label": "Toggle atom-vcs-linter",
+        "command": "atom-vcs-linter:toggle"
       }
     ]
   },
@@ -12,11 +12,11 @@
       "label": "Packages",
       "submenu": [
         {
-          "label": "atom-sv-linter",
+          "label": "atom-vcs-linter",
           "submenu": [
             {
               "label": "Toggle",
-              "command": "atom-sv-linter:toggle"
+              "command": "atom-vcs-linter:toggle"
             }
           ]
         }

@@ -12,7 +12,7 @@ This is a atom-linter provider that parses vcs output so that it can be used as 
 * [Atom text editor](https://atom.io/) with [linter package](https://atom.io/packages/linter) installed. You probably want language packages for your hdl languages as well.
 
 ## Installation
-1. copy code into atom-sv-linter subdirectory (create it, or let git do it) of atom's packages directory (linux: ~/.atom/packages)
+1. copy code into atom-vcs-linter subdirectory (create it, or let git do it) of atom's packages directory (linux: ~/.atom/packages)
 2. ```cd``` into folder
 3. run ```apm``` install. With portable atom, this is available in ```<atom_install_dir>/resources/app/apm/bin```
 

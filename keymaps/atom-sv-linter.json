@@ -1,5 +1,5 @@
 {
   "atom-workspace": {
-    "ctrl-alt-o": "atom-sv-linter:toggle"
+    "ctrl-alt-o": "atom-vcs-linter:toggle"
   }
 }
