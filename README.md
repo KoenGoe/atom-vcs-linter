@@ -19,5 +19,5 @@ This is a atom-linter provider that parses vcs output so that it can be used as 
 ## TODO
 * clean up unused template code
 * support more errors and warnings
-* support line-breaks in error messages. This might be something to fix at a higher level (atom-linter / atom).
+* support displaying of line-breaks in error messages. This might be something to fix at a higher level (atom-linter / atom).
 * normal installation process
