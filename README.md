@@ -21,3 +21,7 @@ This is a atom-linter provider that parses vcs output so that it can be used as 
 * support more errors and warnings
 * support displaying of line-breaks in error messages. This might be something to fix at a higher level (atom-linter / atom).
 * normal installation process
+## FAQ
+* Q: Why is it slow? A: it is about as fast as ```make linter```, so speed up that. If you're not doing already, make sure you use incremental builds with ```vcs```.
+* Q: Why do I have to do this complex installation procedure? A: because I don't know how to simplify it and am too lazy to find out. If you know, please tell me or fix it yourself and send a pull request.
+* Q: It shows an error/warning/... on the first line of a wrong file, instead of at the correct location mentioned in the error. A: Please file an issue with the output of ```make linter``` (you can strip confidential parts if you want, just make sure the lines with and around the error/warning/... are still in there) and mention where you would like the error/warning/... to be shown (file and line). The code uses general regexes to extract this data, which might fail sometimes as ```vcs``` errors/warnings/... do not follow a strict template that I can parse.
