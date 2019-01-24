@@ -33,8 +33,8 @@ try:
     lines=lines[1:]
     i=0
     out = ""
+
     while i<len(lines):
-        #print(lines[i])
         startline=False
         if lines[i].startswith("Error"):
             type = "Error"
@@ -67,7 +67,7 @@ try:
                     reans = re.findall("\s+\[?((?:\"[^\"\n\r\t]+\")|(?:\S+))\s*,\s*([0-9]*)\]?", '\n'.join(errorlines))
                     if reans:
                         files = []
-                        lines = []
+                        thislines = []
                         for foundfile, foundline in reans:
                             #print('match')
                             foundfile = foundfile.strip("\"")
@@ -75,8 +75,8 @@ try:
                             if path.isfile(foundfile):
                                 found=True
                                 files.append(foundfile)
-                                lines.append(foundline)
-                    for f, l in zip(files, lines):
+                                thislines.append(foundline)
+                    for f, l in zip(files, thislines):
                         out += f +":"+l +":"+ type +":"+'\n'.join(errorlines)+"\n\n"
 
 
