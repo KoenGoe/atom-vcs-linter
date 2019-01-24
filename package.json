@@ -1,14 +1,22 @@
 {
-  "name": "linter-vcs",
+  "name": "atom-vcs-linter",
   "main": "lib/atom-vcs-linter.js",
   "version": "0.0.9",
   "private": true,
   "description": "vcs linter",
-  "keywords": ["linter", "vcs", "verilog", "systemverilog", "hdl"],
+  "keywords": [
+    "linter",
+    "vcs",
+    "verilog",
+    "systemverilog",
+    "hdl"
+  ],
   "engines": {
     "atom": ">=1.4.0 <2.0.0"
   },
-  "package-deps":["linter"],
+  "package-deps": [
+    "linter"
+  ],
   "providedServices": {
     "linter": {
       "versions": {
